@@ -70,3 +70,17 @@ The splash screen now closes only when the video emits its native `ended` event 
 
 ### Centered 8-second minimum intro
 The intro video is displayed centered in a compact 480px-wide card (matching the sign-in panel width) on the same green gradient background. Playback runs at its normal speed and the splash remains visible until the video finishes, with an 8-second minimum measured from actual playback start. Users can still skip.
+
+
+## Church-specific member sign-in QR
+Church administrators and the developer can open **Church settings** to generate and download a QR code unique to the organisation's church ID. The QR contains the deployed application URL plus the `church` query parameter. Members scan it with their phone camera; the application opens the sign-in screen in that church context. After authentication, the app verifies that the account has the same `church_id` and has the `member` role. Accounts from other churches and non-member roles are rejected from this QR sign-in flow.
+
+The QR is a church-specific sign-in link, not an access credential and not a public account-creation mechanism. Members must already have an account created through the church's invitation workflow and have their login linked to their existing member-directory record by an administrator. The QR generator uses the QRCode.js CDN, so the browser needs internet access when the administrator opens Church settings.
+
+
+## Silent visual animation + original worship hymn update
+The intro video has been rebuilt without the storyboard caption strips or text overlays. The uploaded golden-radiance image is incorporated as a clean, text-free transition/background treatment. The final video includes an original 9.875-second instrumental worship hymn, "A Heart That Gives" (organ/choir-pad/piano-style synthesized arrangement), muxed as AAC audio in the MP4. Developer credits and hymn title appear beneath the video, not over the animation. The browser attempts autoplay with sound; if its autoplay policy blocks audio, the user sees "Play intro with hymn" and can start the full audiovisual intro with one tap. The sign-in screen appears on the video's ended event, or if the user chooses Skip intro.
+
+
+## Official Kingdom Treasure brand consistency
+The supplied alternative emblem is not used. The original Kingdom Treasure chest/church-and-cross logo in `Kingdom_Treasure_Logo.png` is the sole brand mark used on the sign-in screen, sidebar, top navigation, favicon/app icon and the final animation reveal. The animation's final reveal was rebuilt on a clean evergreen-and-gold background using that exact original logo asset. `Kingdom-Treasure-Favicon.png` is generated from the same official logo.

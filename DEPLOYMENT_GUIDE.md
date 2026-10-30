@@ -95,3 +95,15 @@ The splash is dismissed only by the MP4 `ended` event or the user's Skip Intro a
 
 ### Centered intro sizing and timing
 The video is centered and constrained to the same maximum width as the sign-in card (480px), with a 16:9 aspect ratio. It plays at normal speed and cannot be dismissed before it finishes; an 8-second minimum is measured from the first `playing` event. The skip control remains available.
+
+
+## Church member sign-in QR codes
+No additional SQL migration is needed for QR generation. After deploying the updated `index.html`, a church administrator opens **Church settings** and downloads the organisation-specific QR code. The QR is generated from the current deployed URL and the church UUID. Members scan it, then sign in with their existing registered member credentials. The app validates the authenticated profile's church ID and `member` role before granting access. Invite and link each member account using the existing **Users & roles → Link member** workflow first. QR generation uses the QRCode.js CDN and requires browser internet access.
+
+
+## Intro hymn and clean animation
+Keep `Kingdom-Treasure-Animated-Logo.mp4` beside `index.html`. The MP4 contains H.264 video and AAC audio (original instrumental hymn "A Heart That Gives") for the full 9.875-second duration. The storyboard text captions have been removed; developer attribution is rendered below the animation in the splash layout. Browsers may block autoplay with sound; in that case users must tap "Play intro with hymn". The sign-in screen is shown only on the video's `ended` event or when Skip intro is selected.
+
+
+## Official logo assets
+Deploy `Kingdom_Treasure_Logo.png` and `Kingdom-Treasure-Favicon.png` beside `index.html`. These are the same official Kingdom Treasure brand mark. The MP4 animation's final logo reveal uses the same original PNG asset; the alternate emblem supplied later is intentionally not used.

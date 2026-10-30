@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kingdom Treasure | Church Management</title>
+<link rel="icon" type="image/png" href="Kingdom-Treasure-Favicon.png"><link rel="apple-touch-icon" href="Kingdom_Treasure_Logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--green:#075c43;--green2:#0b7958;--gold:#d4a94d;--ink:#17251f;--muted:#66756e;--line:#e2e9e5;--bg:#f4f7f5;--white:#fff;--red:#b53b3b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px 'DM Sans',sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:9px;padding:10px 14px;font-weight:700}.primary{background:var(--green);color:white}.secondary{background:#eaf2ee;color:var(--green)}.outline{background:white;border:1px solid var(--line);color:var(--ink)}.danger{background:#fff0f0;color:var(--red)}.muted{color:var(--muted)}.small{font-size:12px;padding:7px 10px}.hidden{display:none!important}.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(135deg,#063e30,#0b7958)}.auth-card{background:white;width:min(480px,100%);border-radius:20px;padding:30px;box-shadow:0 25px 80px #001d153d}.logo{width:55px;height:55px;object-fit:contain}.auth h1,.brand strong{font-family:Manrope,sans-serif}.auth h1{font-size:26px;margin:8px 0}.field{display:grid;gap:6px;margin:13px 0}.field label{font-size:12px;font-weight:700;color:#52635b}.field input,.field select,.field textarea{width:100%;padding:11px;border:1px solid #dce5df;border-radius:9px;background:white}.field textarea{min-height:75px}.auth-tabs{display:flex;gap:8px;margin:18px 0}.auth-tabs button{flex:1}.app{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.sidebar{background:#073e30;color:white;padding:20px 14px;position:sticky;top:0;height:100vh;overflow:auto}.brand{display:flex;gap:10px;align-items:center;padding:4px 8px 22px}.brand img{width:42px;height:42px;object-fit:contain;background:white;border-radius:9px}.brand strong{display:block;font-size:15px}.brand span{font-size:9px;letter-spacing:1.2px;color:#b6d2c5}.nav button{display:flex;align-items:center;gap:11px;width:100%;background:transparent;color:#d7e7df;text-align:left;margin:3px 0;padding:11px;border-radius:8px}.nav button.active,.nav button:hover{background:#ffffff1c;color:white}.nav .ico{width:20px;text-align:center}.side-foot{font-size:10px;color:#a7c6b8;line-height:1.7;padding:22px 8px}.main{min-width:0}.topbar{height:76px;background:white;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:0 26px;gap:15px}.topbar h2{margin:0;font:700 18px Manrope}.topbar p{margin:3px 0 0;color:var(--muted);font-size:12px}.top-actions{display:flex;gap:8px;align-items:center}.content{padding:24px;max-width:1500px;margin:auto}.pagehead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}.pagehead h2{font:800 23px Manrope;margin:0 0 4px}.pagehead p{color:var(--muted);margin:0}.actions{display:flex;gap:8px;flex-wrap:wrap}.grid{display:grid;gap:14px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:16px}.two{grid-template-columns:1fr 1fr}.three{grid-template-columns:repeat(3,1fr)}.card{background:white;border:1px solid var(--line);border-radius:13px;padding:17px;min-width:0}.stat small{color:var(--muted);font-weight:600}.stat strong{display:block;font:800 24px Manrope;margin:9px 0 4px}.stat span{font-size:11px;color:var(--muted)}.section-title{font:700 15px Manrope;margin:0 0 13px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:12px}.toolbar input,.toolbar select{padding:9px;border:1px solid var(--line);border-radius:8px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:9px}table{border-collapse:collapse;width:100%;min-width:650px}th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #edf1ee;font-size:12px}th{background:#f7faf8;color:#5c6b64;text-transform:uppercase;font-size:10px;letter-spacing:.4px}tr:last-child td{border-bottom:0}.pill{display:inline-block;border-radius:20px;padding:4px 8px;background:#edf2ef;color:#51645a;font-size:10px;font-weight:700}.pill.good{background:#e4f6eb;color:#087348}.pill.warn{background:#fff2d9;color:#94610c}.pill.bad{background:#ffeded;color:#a42c2c}.notice{padding:12px 14px;border-radius:9px;background:#fff7e5;color:#75591c;border:1px solid #f0e0b7;font-size:12px;margin:12px 0}.bar{height:10px;background:#edf2ef;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:var(--green2)}.report-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.report-tile{border:1px solid var(--line);padding:14px;border-radius:10px}.report-tile b{display:block;margin-bottom:5px}.modalbg{position:fixed;inset:0;background:#061e17a8;z-index:10;display:grid;place-items:center;padding:15px}.modal{background:white;border-radius:15px;width:min(700px,100%);max-height:90vh;overflow:auto;padding:22px}.modalhead{display:flex;justify-content:space-between;align-items:center}.modalhead h3{margin:0;font:700 18px Manrope}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 13px}.span2{grid-column:span 2}.footer{text-align:center;padding:22px;color:#82928b;font-size:10px}.hamb{display:none}
@@ -17,22 +18,33 @@ body.intro-active #auth, body.intro-active #shell { visibility:hidden; }
 .brand img{width:42px;height:42px;object-fit:contain}
 @media(max-width:520px){.intro-splash video{width:100%;max-width:480px}.intro-splash{padding:16px}}
 @media(prefers-reduced-motion:reduce){.intro-splash{transition:none}}
+
+.intro-credits{width:min(480px,calc(100vw - 40px));text-align:center;color:#f5e6bd;font-size:12px;line-height:1.65;text-shadow:0 1px 4px #000}
+.intro-credits strong{display:block;font-size:14px;color:#fff;font-weight:700}
+.intro-hymn-title{font-weight:700;color:#f4d58b;margin-bottom:8px}
 </style></head><body class="intro-active"><div id="introSplash" class="intro-splash" aria-label="Kingdom Treasure introduction">
-<video id="introVideo" autoplay muted playsinline webkit-playsinline preload="auto" poster="Kingdom-Treasure-Intro-Poster.jpg">
+<video id="introVideo" autoplay playsinline webkit-playsinline preload="auto" poster="Kingdom-Treasure-Intro-Poster.jpg">
 <source src="Kingdom-Treasure-Animated-Logo.mp4" type="video/mp4">
 </video>
 <div class="intro-skip">
 <span id="introPlaybackMessage">Kingdom Treasure</span>
-<button id="introPlay" class="hidden" type="button" onclick="replayIntro()">Play intro</button>
+<button id="introPlay" class="hidden" type="button" onclick="replayIntro()">Play intro with hymn</button>
 <button id="introContinue" class="hidden" type="button" onclick="finishIntro()">Continue to sign in</button>
 <button type="button" onclick="finishIntro()">Skip intro</button>
+</div>
+<div class="intro-credits">
+  <div class="intro-hymn-title">Original instrumental worship hymn · “A Heart That Gives”</div>
+  <div>Developed by Engineer &amp; Software Developer</div>
+  <strong>Tongai Godfrey Mapiye</strong>
+  <div>Cyber Fortress Technologies</div>
 </div>
 </div>
 
 <section id="auth" class="auth"><div class="auth-card">
-<img id="authLogo" class="logo" src="Kingdom_Treasure_Logo.png" onerror="this.style.display='none'">
+<img id="authLogo" class="logo" alt="Kingdom Treasure official logo" src="Kingdom_Treasure_Logo.png" onerror="this.style.display='none'">
 <h1>Kingdom Treasure</h1><p class="muted">Church Management & Financial Accountability</p>
 <div id="setupNotice" class="notice">Connect your Supabase project to activate secure accounts and shared church data. Add the project URL and anon key in <code>config.js</code>.</div>
+<div id="qrChurchNotice" class="notice hidden" style="margin-bottom:12px"></div>
 <div class="auth-tabs"><button id="tabIn" class="primary" onclick="setAuthMode('in')">Sign in</button><button id="tabUp" class="secondary" onclick="setAuthMode('up')">Create church account</button></div>
 <form id="authForm">
 <div id="signupFields" class="hidden">
@@ -46,7 +58,7 @@ body.intro-active #auth, body.intro-active #shell { visibility:hidden; }
 </form><button class="outline small" type="button" onclick="resetPassword()">Forgot password?</button><p id="authMsg" class="muted" style="font-size:12px"></p>
 <p class="muted" style="font-size:11px">Free registration. Advanced reports and multi-branch features require a paid plan.</p></div></section>
 <div id="shell" class="app hidden">
-<aside class="sidebar" id="sidebar"><div class="brand"><img src="Kingdom_Treasure_Logo.png"><div><strong>Kingdom Treasure</strong><span>STEWARDSHIP PLATFORM</span></div></div>
+<aside class="sidebar" id="sidebar"><div class="brand"><img src="Kingdom_Treasure_Logo.png" alt="Kingdom Treasure official logo"><div><strong>Kingdom Treasure</strong><span>STEWARDSHIP PLATFORM</span></div></div>
 <nav class="nav" id="nav">
 <button data-page="dashboard" class="active">▦ Dashboard</button><button data-page="memberProfile" id="memberProfileNav" class="hidden">♙ My profile</button><button data-page="memberGiving" id="memberGivingNav" class="hidden">♡ My giving</button><button data-page="members">♙ Members</button><button data-page="transactions">↔ Income & expenses</button><button data-page="budgets">▤ Budgets & departments</button><button data-page="branches">⌂ Branches</button><button data-page="reports">▥ Reports & statements</button><button data-page="users">⚿ Users & roles</button><button data-page="subscription">◇ Subscription</button><button data-page="settings">⚙ Settings</button><button data-page="developer" id="devNav" class="hidden">♜ Developer console</button>
 </nav><div class="side-foot">Faithful Stewardship.<br>Transparent Accounting.<br><br>Developed by Engineer & Software Developer<br><b>Tongai Godfrey Mapiye</b><br>Cyber Fortress Technologies</div></aside>
@@ -54,8 +66,10 @@ body.intro-active #auth, body.intro-active #shell { visibility:hidden; }
 <div class="content" id="content"></div><div class="footer">Kingdom Treasure · Developed by Engineer & Software Developer – Tongai Godfrey Mapiye – Cyber Fortress Technologies</div></main></div>
 <div id="modalRoot"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="config.js"></script><script>
 const DEV_EMAIL='tongaigodfreymapiye@gmail.com', $=id=>document.getElementById(id);
+const qrChurchId=new URLSearchParams(location.search).get('church');
 let sb=null,user=null,profile=null,org=null,branches=[],members=[],transactions=[],budgets=[],departments=[],accounts=[],pledges=[],journalLines=[],subscription=null,chart=null,page='dashboard',authMode='in';
 const money=(v,c=org?.currency||'USD')=>{try{return new Intl.NumberFormat('en-US',{style:'currency',currency:c}).format(Number(v||0))}catch{return c+' '+Number(v||0).toFixed(2)}};
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -66,14 +80,36 @@ const isAdmin=()=>['developer','church_admin'].includes(profile?.role);
 const canEdit=()=>['developer','church_admin','treasurer'].includes(profile?.role);
 const isMember=()=>profile?.role==='member';
 const branchId=()=>profile?.branch_id||branches[0]?.id;
-function setAuthMode(m){authMode=m;$('signupFields').classList.toggle('hidden',m!=='up');$('tabIn').className=m==='in'?'primary':'secondary';$('tabUp').className=m==='up'?'primary':'secondary';$('authSubmit').textContent=m==='in'?'Sign in':'Create free account';$('authMsg').textContent=''}
-function init(){const c=window.KT_CONFIG||{};if(c.url&&c.anonKey&&window.supabase){sb=window.supabase.createClient(c.url,c.anonKey);$('setupNotice').classList.add('hidden');sb.auth.getSession().then(({data})=>{if(data.session)boot(data.session.user)});sb.auth.onAuthStateChange((ev,s)=>{if(s?.user&&!user)boot(s.user);if(!s)showAuth()})}}
+function setAuthMode(m){if(qrChurchId&&m==='up'){m='in';$('authMsg').textContent='Church QR sign-in is for existing registered members. Ask your church administrator for an account.';}authMode=m;$('signupFields').classList.toggle('hidden',m!=='up');$('tabIn').className=m==='in'?'primary':'secondary';$('tabUp').className=m==='up'?'primary':'secondary';$('authSubmit').textContent=m==='in'?'Sign in':'Create free account';$('authMsg').textContent=''}
+function init(){
+ if(qrChurchId){
+   $('qrChurchNotice').classList.remove('hidden');
+   $('qrChurchNotice').innerHTML='<b>Church member sign-in</b><br>This sign-in link is assigned to church ID <code>'+esc(qrChurchId)+'</code>. Use the email and password registered with your church.';
+   $('tabUp').classList.add('hidden');
+ }
+ const c=window.KT_CONFIG||{};if(c.url&&c.anonKey&&window.supabase){sb=window.supabase.createClient(c.url,c.anonKey);$('setupNotice').classList.add('hidden');sb.auth.getSession().then(({data})=>{if(data.session)boot(data.session.user)});sb.auth.onAuthStateChange((ev,s)=>{if(s?.user&&!user)boot(s.user);if(!s)showAuth()})}}
 function showAuth(){$('shell').classList.add('hidden');$('auth').classList.remove('hidden');user=null;profile=null}
 async function authSubmit(e){e.preventDefault();if(!sb){$('authMsg').textContent='Supabase is not configured. Complete config.js and run the SQL setup first.';return}let email=$('email').value.trim().toLowerCase(),password=$('password').value;$('authSubmit').disabled=true;$('authMsg').textContent='Please wait…';try{if(authMode==='in'){let {error}=await sb.auth.signInWithPassword({email,password});if(error)throw error}else{let {data,error}=await sb.auth.signUp({email,password,options:{data:{full_name:$('fullName').value.trim(),church_name:$('churchName').value.trim(),branch_name:$('branchName').value.trim()||'Main Branch'},emailRedirectTo:location.origin+location.pathname}});if(error)throw error;if(data.session)await boot(data.user);$('authMsg').textContent='Account created. Check your email to verify the address, then sign in.'}}catch(err){$('authMsg').textContent=err.message||'Authentication failed'}finally{$('authSubmit').disabled=false}}
 $('authForm').addEventListener('submit',authSubmit);
 async function resetPassword(){if(!sb)return alert('Configure Supabase first');let email=$('email').value.trim();if(!email)return alert('Enter your email address first');let {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});$('authMsg').textContent=error?error.message:'Password reset email sent.'}
 async function signOut(){if(sb)await sb.auth.signOut();showAuth()}
-async function boot(u){if(!sb)return;user=u;org=null;try{let {data:p,error}=await sb.from('profiles').select('*').eq('id',u.id).single();if(error)throw error;profile=p;if(p.church_id){let {data:o,error:oe}=await sb.from('churches').select('*').eq('id',p.church_id).single();if(oe)throw oe;org=o}else if(p.role!=='developer')throw new Error('Your account is not linked to a church. Contact support.');await refreshData();$('auth').classList.add('hidden');$('shell').classList.remove('hidden');$('orgLabel').textContent=org?org.name+' · '+(branches.find(b=>b.id===profile.branch_id)?.name||'All branches'):'Developer platform';$('rolePill').textContent=profile.role.replace('_',' ');
+async function boot(u){if(!sb)return;user=u;org=null;try{let {data:p,error}=await sb.from('profiles').select('*').eq('id',u.id).single();if(error)throw error;profile=p;
+ if(qrChurchId && (p.church_id!==qrChurchId || p.role!=='member')){
+   await sb.auth.signOut();showAuth();
+   $('authMsg').textContent=p.church_id!==qrChurchId
+     ?'This account belongs to a different church. Please scan the QR code for your registered church.'
+     :'This QR sign-in is reserved for registered church member accounts.';
+   return;
+ }
+ if(qrChurchId && p.role==='member'){
+   const linked=await sb.from('members').select('id').eq('auth_user_id',u.id).maybeSingle();
+   if(linked.error || !linked.data){
+     await sb.auth.signOut();showAuth();
+     $('authMsg').textContent='Your login is not yet linked to a registered member record. Please contact your church administrator.';
+     return;
+   }
+ }
+ if(p.church_id){let {data:o,error:oe}=await sb.from('churches').select('*').eq('id',p.church_id).single();if(oe)throw oe;org=o}else if(p.role!=='developer')throw new Error('Your account is not linked to a church. Contact support.');await refreshData();$('auth').classList.add('hidden');$('shell').classList.remove('hidden');$('orgLabel').textContent=org?org.name+' · '+(branches.find(b=>b.id===profile.branch_id)?.name||'All branches'):'Developer platform';$('rolePill').textContent=profile.role.replace('_',' ');
  $('devNav').classList.toggle('hidden',!isDev());
  const memberOnly=['memberProfileNav','memberGivingNav'];
  memberOnly.forEach(id=>$(id)?.classList.toggle('hidden',!isMember()));
@@ -191,7 +227,41 @@ async function linkMember(profileId,personName){
 function inviteUser(){if(!isAdmin())return;openModal('Invite church user',`<form id="inviteForm"><div class="field"><label>Full name</label><input name="full_name" required></div><div class="field"><label>Email address</label><input name="email" type="email" required></div><div class="field"><label>Role</label><select name="role"><option value="member">Member</option><option value="department_leader">Department leader</option><option value="church_admin">Church administrator</option><option value="treasurer">Treasurer</option><option value="pastor">Pastor</option></select></div><div class="field"><label>Branch</label><select name="branch_id">${branches.map(b=>`<option value="${b.id}">${esc(b.name)}</option>`).join('')}</select></div><button class="primary">Send invitation</button></form>`);$('inviteForm').onsubmit=async e=>{e.preventDefault();let body=Object.fromEntries(new FormData(e.target));let {data,error}=await sb.functions.invoke('invite-user',{body});if(error)return alert(error.message);if(data?.error)return alert(data.error);alert(data.message||'Invitation sent');closeModal();renderUsers()}}
 function renderSubscription(){$('content').innerHTML=pageHead('Plans & subscription','Start free. Upgrade to unlock advanced reporting and multi-branch administration.')+`<div class="grid three"><div class="card"><h3>Free</h3><h2>$0</h2><p>One branch · Unlimited member directory entries · Basic dashboard and financial records</p><span class="pill">Available now</span></div><div class="card"><h3>Annual Church</h3><h2>$20 <small>/ year</small></h2><p>One branch · Unlimited members and church user accounts · Advanced reports · PDF and Excel exports</p><button class="primary" onclick="requestPlan('annual')">Request annual activation</button></div><div class="card"><h3>Lifetime Church</h3><h2>$200 <small>once-off</small></h2><p>Permanent account · Unlimited branches · Unlimited users · All advanced features</p><button class="primary" onclick="requestPlan('lifetime')">Request lifetime activation</button></div></div><div class="card" style="margin-top:14px"><h3 class="section-title">Additional branches</h3><p>Additional branches are separately subscription-controlled for annual customers. Branch pricing and payment gateway activation are configurable by the developer; no unapproved payment is assumed to have succeeded.</p><button class="secondary" onclick="requestPlan('branch_addon')">Request additional branch subscription</button><p><b>Current plan:</b> ${esc(subscription?.plan||'free')} · <b>Status:</b> ${esc(subscription?.status||'free')}</p></div>`}
 async function requestPlan(plan){let {data,error}=await sb.from('subscription_requests').insert({church_id:org.id,requested_by:user.id,requested_plan:plan,status:'pending'}).select().single();if(error)return alert(error.message);alert('Subscription request recorded. The developer will confirm payment and activate the plan. Payment is not yet taken in this build.')}
-function renderSettings(){$('content').innerHTML=pageHead('Church settings','Organisation profile and reporting currency.')+`<div class="card"><p><b>${esc(org.name)}</b></p><p>Currency: ${esc(org.currency||'USD')}</p><p>Church ID: <code>${org.id}</code></p><p class="muted">Ask the developer to update organisation legal details, reporting policies and payment configuration.</p></div>`}
+function renderSettings(){
+ const qrPanel=isAdmin()?`<section class="card" style="margin-top:14px"><h3 class="section-title">Member sign-in QR code</h3>
+ <p class="muted">This QR code is unique to your church ID. Members scan it with their phone camera, then sign in using their existing church member account. It does not create an account or grant access by itself.</p>
+ <div class="grid two" style="align-items:center">
+ <div><div id="churchQrCode" style="display:inline-flex;background:#fff;padding:14px;border:1px solid var(--line);border-radius:12px;min-height:220px;min-width:220px;align-items:center;justify-content:center"><span class="muted">Generating QR code…</span></div></div>
+ <div><p><b>Church:</b> ${esc(org.name)}</p><p><b>Church ID:</b><br><code>${esc(org.id)}</code></p>
+ <p class="muted">Share this code with registered members of this church. A member account linked to another church will be rejected.</p>
+ <button class="primary" onclick="downloadChurchQR()">Download QR code</button>
+ <button class="secondary" onclick="copyChurchQRLink()">Copy sign-in link</button>
+ </div></div></section>`:'';
+ $('content').innerHTML=pageHead('Church settings','Organisation profile and reporting currency.')+
+ `<div class="card"><p><b>${esc(org.name)}</b></p><p>Currency: ${esc(org.currency||'USD')}</p><p>Church ID: <code>${org.id}</code></p><p class="muted">Ask the developer to update organisation legal details, reporting policies and payment configuration.</p></div>`+qrPanel;
+ if(isAdmin())setTimeout(renderChurchQR,50);
+}
+function churchMemberSignInUrl(){
+ const u=new URL(location.href);u.search='';u.hash='';u.searchParams.set('church',org.id);return u.toString();
+}
+function renderChurchQR(){
+ const el=$('churchQrCode');if(!el||!org)return;
+ el.innerHTML='';
+ if(!window.QRCode){el.innerHTML='<span class="muted">QR library could not load. Check internet access and refresh.</span>';return}
+ new QRCode(el,{text:churchMemberSignInUrl(),width:200,height:200,colorDark:'#073f30',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+}
+function downloadChurchQR(){
+ const el=$('churchQrCode');if(!el)return;
+ const canvas=el.querySelector('canvas'),img=el.querySelector('img');
+ let url=canvas?canvas.toDataURL('image/png'):img?.src;
+ if(!url)return alert('QR code is not ready yet.');
+ const a=document.createElement('a');a.href=url;a.download='Kingdom-Treasure-Church-Member-QR.png';a.click();
+}
+async function copyChurchQRLink(){
+ const link=churchMemberSignInUrl();
+ try{await navigator.clipboard.writeText(link);alert('Church member sign-in link copied.')}
+ catch{prompt('Copy this church member sign-in link:',link)}
+}
 async function renderDeveloper(){if(!isDev())return go('dashboard');let {data:orgs,error}=await sb.from('churches').select('id,name,created_at');let {data:req}=await sb.from('subscription_requests').select('*').order('created_at',{ascending:false});$('content').innerHTML=pageHead('Developer console','Platform-level administration. Reserved for the verified developer identity.')+`<div class="notice">Developer access is granted by a database trigger only to the verified email ${DEV_EMAIL}. Church administrators cannot promote themselves to developer.</div><section class="card"><h3 class="section-title">Church organisations</h3><div class="table-wrap"><table><thead><tr><th>Church</th><th>ID</th><th>Created</th></tr></thead><tbody>${(orgs||[]).map(o=>`<tr><td>${esc(o.name)}</td><td>${o.id}</td><td>${o.created_at.slice(0,10)}</td></tr>`).join('')}</tbody></table></div></section><section class="card" style="margin-top:14px"><h3 class="section-title">Subscription activation requests</h3><div class="table-wrap"><table><thead><tr><th>Church</th><th>Requested plan</th><th>Status</th><th>Action</th></tr></thead><tbody>${(req||[]).map(r=>`<tr><td>${r.church_id}</td><td>${r.requested_plan}</td><td>${r.status}</td><td><button class="primary small" onclick="activatePlan('${r.id}','${r.church_id}','${r.requested_plan}')">Activate after payment verified</button></td></tr>`).join('')}</tbody></table></div></section>`}
 async function activatePlan(id,cid,plan){if(!isDev())return;let until=plan==='annual'?new Date(Date.now()+365*86400000).toISOString():null;let {error}=await sb.rpc('kt_activate_subscription',{p_request_id:id,p_church_id:cid,p_plan:plan,p_expires_at:until});if(error)alert(error.message);else{alert('Subscription activated.');renderDeveloper()}}
 function finishIntro(){
@@ -204,38 +274,32 @@ function finishIntro(){
 (function startIntro(){
  const v=$('introVideo'),s=$('introSplash');
  if(!v||!s){document.body.classList.remove('intro-active');return}
- const MIN_INTRO_MS=8000;
- let startedAt=0, playbackEnded=false, closing=false;
- const tryPlay=()=>{
-   const p=v.play();
-   if(p&&p.catch)p.catch(()=>{
-     const msg=$('introPlaybackMessage');
-     if(msg)msg.textContent='Tap Play Intro to start.';
-     $('introPlay')?.classList.remove('hidden');
-   });
- };
- v.addEventListener('playing',()=>{
-   if(!startedAt)startedAt=Date.now();
- },{once:true});
- v.addEventListener('ended',()=>{
-   playbackEnded=true;
-   const elapsed=startedAt?Date.now()-startedAt:0;
-   const wait=Math.max(0,MIN_INTRO_MS-elapsed);
-   if(!closing){
-     closing=true;
-     setTimeout(()=>finishIntro(),wait);
-   }
- },{once:true});
+ let started=false;
+ v.addEventListener('playing',()=>{started=true;$('introPlaybackMessage').textContent='Kingdom Treasure';},{once:true});
+ v.addEventListener('ended',()=>finishIntro(),{once:true});
  v.addEventListener('error',()=>{
-   if(!startedAt){
-     const msg=$('introPlaybackMessage');
-     if(msg)msg.textContent='The introduction could not play. You can continue to sign in.';
-     $('introContinue')?.classList.remove('hidden');
+   if(!started){
+     $('introPlaybackMessage').textContent='Tap below to play the introduction with its worship hymn.';
+     $('introPlay')?.classList.remove('hidden');
    }
  });
- v.addEventListener('loadedmetadata',tryPlay,{once:true});
- tryPlay();
+ const attempt=v.play();
+ if(attempt&&attempt.catch)attempt.catch(()=>{
+   $('introPlaybackMessage').textContent='Tap Play intro with hymn to begin.';
+   $('introPlay')?.classList.remove('hidden');
+ });
 })();
+function replayIntro(){
+ const v=$('introVideo');
+ if(!v)return;
+ v.currentTime=0;
+ v.muted=false;
+ const p=v.play();
+ if(p&&p.catch)p.catch(()=>{
+   $('introPlaybackMessage').textContent='Please tap Play intro with hymn to allow audio playback.';
+   $('introPlay')?.classList.remove('hidden');
+ });
+}
 function replayIntro(){
  const v=$('introVideo');
  if(!v)return;

@@ -62,3 +62,11 @@ The application now plays `Kingdom-Treasure-Animated-Logo.mp4` as a full-screen,
 
 ### Splash playback compatibility fix
 The intro video is encoded as H.264 MP4 (yuv420p, fast-start) for Chrome/Edge/Safari browser playback. `Kingdom-Treasure-Intro-Poster.jpg` displays immediately while the video loads. Keep the MP4, poster JPG and logo PNG beside `index.html`.
+
+
+### Intro playback completion
+The splash screen now closes only when the video emits its native `ended` event or the user selects Skip Intro. There is no fixed-duration dismissal timer and no reduced-motion early dismissal. A retry button appears only if autoplay has not started; buffering or a longer load does not shorten playback.
+
+
+### Centered 8-second minimum intro
+The intro video is displayed centered in a compact 480px-wide card (matching the sign-in panel width) on the same green gradient background. Playback runs at its normal speed and the splash remains visible until the video finishes, with an 8-second minimum measured from actual playback start. Users can still skip.

@@ -87,3 +87,11 @@ Keep `Kingdom-Treasure-Animated-Logo.mp4` and `Kingdom_Treasure_Logo.png` in the
 
 ### Browser compatibility
 Use the supplied H.264 `Kingdom-Treasure-Animated-Logo.mp4` and keep `Kingdom-Treasure-Intro-Poster.jpg` beside `index.html`. The poster renders immediately; the video is muted for browser autoplay compatibility. If deploying to GitHub Pages, commit and push both media files as well as the updated HTML.
+
+
+### Full intro playback
+The splash is dismissed only by the MP4 `ended` event or the user's Skip Intro action. Do not add a fixed timeout that closes the splash while the video is playing. If autoplay is blocked, the page offers a Play intro control instead.
+
+
+### Centered intro sizing and timing
+The video is centered and constrained to the same maximum width as the sign-in card (480px), with a 16:9 aspect ratio. It plays at normal speed and cannot be dismissed before it finishes; an 8-second minimum is measured from the first `playing` event. The skip control remains available.

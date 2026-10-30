@@ -7,20 +7,26 @@
 
 /* Animated brand introduction */
 body.intro-active #auth, body.intro-active #shell { visibility:hidden; }
-.intro-splash{position:fixed;inset:0;z-index:99999;background:#04170f;display:flex;align-items:center;justify-content:center;opacity:1;transition:opacity .65s ease}
-.intro-splash video{display:block;width:100%;height:100%;object-fit:cover;background:#04170f}
-.intro-skip{position:absolute;right:24px;bottom:22px;display:flex;align-items:center;gap:14px;color:#f5e6bd;font-size:13px;text-shadow:0 1px 4px #000}
+.intro-splash{position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#063e30,#0b7958);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;opacity:1;transition:opacity .45s ease}
+.intro-splash video{display:block;width:min(480px,calc(100vw - 40px));height:auto;aspect-ratio:16/9;object-fit:contain;background:#04170f;border-radius:20px;box-shadow:0 25px 80px #001d153d}
+.intro-skip{position:static;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;color:#f5e6bd;font-size:13px;text-shadow:0 1px 4px #000}
 .intro-skip button{border:1px solid rgba(245,220,160,.65);background:rgba(4,23,15,.7);color:#fff;border-radius:20px;padding:8px 14px;cursor:pointer}
 .intro-splash.done{opacity:0;pointer-events:none}
 .topbar-brand-logo{width:42px;height:42px;object-fit:contain;flex:none}
 .auth-card .logo{max-width:170px;max-height:130px;object-fit:contain}
 .brand img{width:42px;height:42px;object-fit:contain}
+@media(max-width:520px){.intro-splash video{width:100%;max-width:480px}.intro-splash{padding:16px}}
 @media(prefers-reduced-motion:reduce){.intro-splash{transition:none}}
 </style></head><body class="intro-active"><div id="introSplash" class="intro-splash" aria-label="Kingdom Treasure introduction">
 <video id="introVideo" autoplay muted playsinline webkit-playsinline preload="auto" poster="Kingdom-Treasure-Intro-Poster.jpg">
 <source src="Kingdom-Treasure-Animated-Logo.mp4" type="video/mp4">
 </video>
-<div class="intro-skip"><span>Kingdom Treasure</span><button type="button" onclick="finishIntro()">Skip intro</button></div>
+<div class="intro-skip">
+<span id="introPlaybackMessage">Kingdom Treasure</span>
+<button id="introPlay" class="hidden" type="button" onclick="replayIntro()">Play intro</button>
+<button id="introContinue" class="hidden" type="button" onclick="finishIntro()">Continue to sign in</button>
+<button type="button" onclick="finishIntro()">Skip intro</button>
+</div>
 </div>
 
 <section id="auth" class="auth"><div class="auth-card">
@@ -198,17 +204,55 @@ function finishIntro(){
 (function startIntro(){
  const v=$('introVideo'),s=$('introSplash');
  if(!v||!s){document.body.classList.remove('intro-active');return}
- let finished=false;
- v.addEventListener('ended',()=>{finished=true;finishIntro()},{once:true});
- v.addEventListener('error',()=>{if(!finished)setTimeout(finishIntro,1800)},{once:true});
- // The poster is visible immediately; retry playback when the browser has loaded metadata.
- const tryPlay=()=>{const p=v.play();if(p&&p.catch)p.catch(()=>{/* muted autoplay may be restricted; poster remains visible until fallback */})};
+ const MIN_INTRO_MS=8000;
+ let startedAt=0, playbackEnded=false, closing=false;
+ const tryPlay=()=>{
+   const p=v.play();
+   if(p&&p.catch)p.catch(()=>{
+     const msg=$('introPlaybackMessage');
+     if(msg)msg.textContent='Tap Play Intro to start.';
+     $('introPlay')?.classList.remove('hidden');
+   });
+ };
+ v.addEventListener('playing',()=>{
+   if(!startedAt)startedAt=Date.now();
+ },{once:true});
+ v.addEventListener('ended',()=>{
+   playbackEnded=true;
+   const elapsed=startedAt?Date.now()-startedAt:0;
+   const wait=Math.max(0,MIN_INTRO_MS-elapsed);
+   if(!closing){
+     closing=true;
+     setTimeout(()=>finishIntro(),wait);
+   }
+ },{once:true});
+ v.addEventListener('error',()=>{
+   if(!startedAt){
+     const msg=$('introPlaybackMessage');
+     if(msg)msg.textContent='The introduction could not play. You can continue to sign in.';
+     $('introContinue')?.classList.remove('hidden');
+   }
+ });
  v.addEventListener('loadedmetadata',tryPlay,{once:true});
- setTimeout(()=>{if(!s.classList.contains('done'))finishIntro()},12000);
  tryPlay();
- if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-   setTimeout(finishIntro,1500);
- }
 })();
+function replayIntro(){
+ const v=$('introVideo');
+ if(!v)return;
+ v.currentTime=0;
+ const p=v.play();
+ if(p&&p.catch)p.catch(()=>{});
+ $('introPlay')?.classList.add('hidden');
+ $('introContinue')?.classList.add('hidden');
+}
+function replayIntro(){
+ const v=$('introVideo');
+ if(!v)return;
+ v.currentTime=0;
+ const p=v.play();
+ if(p&&p.catch)p.catch(()=>{});
+ $('introPlay')?.classList.add('hidden');
+}
+
 init();
 </script></body></html>

@@ -83,3 +83,7 @@ After the original schema has been applied, run `MEMBER_PORTAL_SECURITY_MIGRATIO
 
 ## Animated splash screen and logo
 Keep `Kingdom-Treasure-Animated-Logo.mp4` and `Kingdom_Treasure_Logo.png` in the same deployment folder as `index.html`. The intro video autoplays muted before the sign-in screen; the skip control and fallback timer ensure users are not blocked if autoplay fails. The same logo appears on sign-in, sidebar and the authenticated page header.
+
+
+### Browser compatibility
+Use the supplied H.264 `Kingdom-Treasure-Animated-Logo.mp4` and keep `Kingdom-Treasure-Intro-Poster.jpg` beside `index.html`. The poster renders immediately; the video is muted for browser autoplay compatibility. If deploying to GitHub Pages, commit and push both media files as well as the updated HTML.

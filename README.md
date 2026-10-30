@@ -58,3 +58,7 @@ Do not link the same membership record to multiple login accounts. The database 
 
 ## Animated opening and application branding
 The application now plays `Kingdom-Treasure-Animated-Logo.mp4` as a full-screen, muted introduction before revealing the sign-in screen. Users can skip the intro; a fallback removes it if autoplay is blocked. The logo asset `Kingdom_Treasure_Logo.png` is used on the sign-in screen, sidebar, and every authenticated page header. Keep both assets beside `index.html` when deploying.
+
+
+### Splash playback compatibility fix
+The intro video is encoded as H.264 MP4 (yuv420p, fast-start) for Chrome/Edge/Safari browser playback. `Kingdom-Treasure-Intro-Poster.jpg` displays immediately while the video loads. Keep the MP4, poster JPG and logo PNG beside `index.html`.

@@ -1,37 +1,43 @@
-# Kingdom Treasure – RBAC and Production Setup Guide
+# Kingdom Treasure — Access Control Notes
 
-## What this updated package includes
-- Prototype signup/sign-in screen and role-oriented UI.
-- Admin role assignment, with a three-Treasurer cap in the interface.
-- Treasurer edit/request workflow; Pastors are intended to be read-only and approve/reject payment requests.
-- Assembly overview, master report, payroll register, generated printable payslip.
-- The supplied CFMI payslip layout represented as payroll fields.
-- Historical import review workbook extracted from the uploaded financial spreadsheets.
-- Supabase/PostgreSQL schema starter for server-side roles, financial records, payment approvals, payroll and audit logs.
+The current package uses Supabase Auth and PostgreSQL Row Level Security. It no longer treats browser-local role values as a security boundary.
 
-## Important deployment boundary
-The current HTML is still a browser-local prototype. Its account data, passwords, banking details and role checks are stored in localStorage. That is NOT secure authentication, does not send email, does not run scheduled reports while closed, and does not connect to a bank. Do not use real passwords or bank details in this prototype. Production security requires implementing the supplied SQL and connecting the front end to Supabase Auth + database policies / Edge Functions. The schema is a starter and must be reviewed and completed before production.
+## Reserved platform developer
+- Exact email: `tongaigodfreymapiye@gmail.com`.
+- The database bootstrap trigger creates the reserved profile.
+- Developer privileges are promoted only after Supabase confirms ownership of the mailbox.
+- Church administrators cannot invite this address into a church or grant the developer role.
+- Developer access is separate from every church organisation and is not controlled by a church subscription.
+- Require MFA and protect the mailbox.
 
-## Required production controls
-1. Create a Supabase project and apply `supabase_schema.sql` after review.
-2. Configure Supabase email/password signup, email verification, password reset, and redirect URLs.
-3. Implement server-only role assignment. Public sign-up must never let a user choose Admin or Treasurer directly. First Admin must be provisioned out of band.
-4. Enforce role policies on every database write: Admin manages users/assemblies; up to three Treasurers can edit finance and request payments; only a Pastor can approve/reject outflows. Treasurers must never execute or approve payments.
-5. Add assembly-scope policies so each assembly's records are partitioned and Admin's Master Report can consolidate all assemblies.
-6. Store bank details encrypted and reveal only masked account numbers in the UI. Restrict bank-detail access and log every read/write.
-7. Send request emails to registered Pastors' verified signup addresses using a server-side email provider. Do not send email from browser-only code.
-8. Schedule monthly reports for the last calendar day and year-end statements using a server scheduler (e.g. Supabase Cron + Edge Function). Email all account holders, with assembly permissions and privacy respected.
-9. Implement real approval transitions, audit trail, payment provider/manual bank reconciliation and idempotency before marking anything paid.
-10. Validate payroll formulas with a qualified local payroll/accounting professional before use.
+## Church roles
+- `church_admin`: manages their church organisation, branch administration, users/invitations, budgets and financial records.
+- `treasurer`: maintains financial records for their assigned branch and records pledge payments.
+- `pastor`: read-only financial/member access for their assigned branch.
+- `department_leader`: assigned branch-level access; department-specific permissions can be expanded.
+- `member`: basic church directory and read access.
 
-## Payroll and payslip notes
-The uploaded CFMI Pastoral Payslip shows: Basic Salary, Housing Allowance, Transport Allowance, Health Insurance, PAYE, AIDS Levy, employee and employer NSSA, Tithe, Net Pay, assembly, month, payment date and authorisation. The prototype creates a printable payslip from entered payroll values. Its example figures and formula defaults are not authoritative tax guidance; verify the applicable current rates and the church's approved tithe policy before processing payroll.
+A church administrator can invite another church administrator, Treasurer, Pastor, Department Leader or Member. The Edge Function validates the caller, organisation and branch, creates a time-limited invitation token, and sends the invitation using Supabase Auth Admin API. The database trigger validates the token before attaching the invited account to the correct church and branch.
 
-## Historical record import review
-`CFMI_Historical_Import_Review.xlsx` contains:
-- `Transaction Import Queue`: 154 candidate income/expense rows extracted from the supplied monthly ledgers.
-- `Partnerships 2023 Queue`: 52 dated partnership contribution rows extracted from the 2023 partnership/pledge workbook.
-- `Date Review Warnings`: date/month conflicts and unparseable date labels preserved for manual review.
-- `Source Inventory`: source workbook and worksheet inventory.
+## Security boundaries
+- No browser-side role assignment.
+- No service-role key in the front end.
+- Row Level Security separates church tenants and assigned branches.
+- Subscription activation RPC is restricted to the reserved developer identity.
+- Branch creation is checked in a database function against active branch entitlements.
+- Posted transactions create balanced journal entries and an audit record.
+- Pledge payments update the pledge and create a donation transaction atomically.
 
-The source ledgers contain mismatches between sheet titles and recorded dates (for example, some sheets labelled January/February contain dates from other months), and the same period appears in both standalone files and quarterly workbooks. For accuracy, extracted rows are marked `Needs Review`; they are NOT auto-posted into live totals. Reconcile date, duplicates, categories, currency, balances and assembly with the original records before importing. This deliberately avoids silently changing historical data or double-counting monthly records.
+See `supabase_schema.sql` and `DEPLOYMENT_GUIDE.md` for implementation and setup.
+
+
+## Member Portal permissions
+Members have a dedicated portal, not the finance or church-management dashboard. They can:
+- View their own membership details and membership number.
+- Update only their own contact email and phone.
+- View their own posted giving history and pledge balances.
+- Download a personal giving statement PDF.
+
+An administrator must link the member login to the corresponding `members` row using the **Link member** action. The database migration adds `members.auth_user_id`, a unique account link, narrow RPCs, and restrictive RLS policies. Members cannot query other members' giving, church-wide transactions, budgets, accounts, journal entries, invitations, or subscription requests.
+
+Explicitly excluded from the member portal: events/services, attendance registration, ministry joining, announcements, church programme access, prayer requests, SMS/email/WhatsApp announcements, pastoral appointment requests, testimonies, and feedback submissions.

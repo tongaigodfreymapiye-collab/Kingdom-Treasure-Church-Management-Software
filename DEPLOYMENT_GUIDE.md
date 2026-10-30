@@ -107,3 +107,7 @@ Keep `Kingdom-Treasure-Animated-Logo.mp4` beside `index.html`. The MP4 contains 
 
 ## Official logo assets
 Deploy `Kingdom_Treasure_Logo.png` and `Kingdom-Treasure-Favicon.png` beside `index.html`. These are the same official Kingdom Treasure brand mark. The MP4 animation's final logo reveal uses the same original PNG asset; the alternate emblem supplied later is intentionally not used.
+
+
+## PowerShell-assisted Supabase setup
+See `SUPABASE_POWERSHELL_QUICKSTART.md`. Run `Configure-Supabase.ps1` to write the public browser config, `Test-SupabaseConnection.ps1` to test endpoint reachability, `Start-LocalPreview.ps1` for local preview, and `Deploy-SupabaseFunction.ps1` to deploy the secure invitation Edge Function after creating and linking your project. These scripts do not store a service-role key.

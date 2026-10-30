@@ -79,3 +79,7 @@ No payment processor was provided. For now, verify payment independently and act
 
 ## Member portal database update
 After the original schema has been applied, run `MEMBER_PORTAL_SECURITY_MIGRATION.sql` in Supabase SQL Editor. This migration adds the one-to-one user-to-member link and member-only row-level security. Then invite members and use Users & roles → Link member to connect each accepted login to its member record. Existing member records remain intact; no member account is automatically linked by email.
+
+
+## Animated splash screen and logo
+Keep `Kingdom-Treasure-Animated-Logo.mp4` and `Kingdom_Treasure_Logo.png` in the same deployment folder as `index.html`. The intro video autoplays muted before the sign-in screen; the skip control and fallback timer ensure users are not blocked if autoplay fails. The same logo appears on sign-in, sidebar and the authenticated page header.

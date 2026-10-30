@@ -54,3 +54,7 @@ The member portal deliberately excludes church-wide events/services, attendance 
 5. The member can then sign in and see only their own profile, giving records, and pledges.
 
 Do not link the same membership record to multiple login accounts. The database enforces one login per member record.
+
+
+## Animated opening and application branding
+The application now plays `Kingdom-Treasure-Animated-Logo.mp4` as a full-screen, muted introduction before revealing the sign-in screen. Users can skip the intro; a fallback removes it if autoplay is blocked. The logo asset `Kingdom_Treasure_Logo.png` is used on the sign-in screen, sidebar, and every authenticated page header. Keep both assets beside `index.html` when deploying.

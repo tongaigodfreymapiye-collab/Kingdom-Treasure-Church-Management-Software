@@ -28,7 +28,7 @@ In Supabase → Authentication → URL Configuration:
 - Configure custom SMTP before commercial use so verification, password reset and user invitations are reliably delivered.
 - Enable MFA for the developer account.
 
-The first registration with `tongaigodfreymapiye@gmail.com` receives the reserved `developer` role from the database trigger. Verify and control this mailbox. Do not create a church under this developer login. Every other public signup creates a new church, first branch, church administrator profile, free subscription and starter chart of accounts.
+The verified `tongaigodfreymapiye@gmail.com` identity receives the reserved `developer` role from the database trigger. The developer is assigned CFMI/Main Branch as the home workspace and receives permanent lifetime entitlement. The developer always lands on the aggregate Platform overview. Do not create a separate church signup under the developer login.
 
 ## 4. Secure church user invitations
 Install the Supabase CLI and link the project, then deploy the Edge Function:
@@ -53,7 +53,7 @@ The application records subscription requests:
 - Lifetime Church: USD $200 once-off, unlimited branches and users, permanent entitlement.
 - Additional branch: request a branch add-on; the developer approves it after separately agreed payment.
 
-No payment processor was provided. For now, verify payment independently and activate requests from the Developer Console. Before launch, connect a payment provider with signed server-side webhooks and idempotent fulfilment. Never activate plans based only on a client-side success screen. Set prices, currencies, refunds, tax treatment and terms before accepting customers.
+No payment processor was provided. For now, verify payment independently and activate requests from the Developer Console. Before launch, connect a payment provider with signed server-side webhooks and idempotent fulfilment. Never activate plans based only on a client-side success screen. Set prices, currencies, refunds, tax treatment and terms before accepting customers. The developer's own CFMI subscription is permanently free and must never show a payment prompt.
 
 ## 7. Acceptance test checklist
 - [ ] Register a normal test church; confirm a church, first branch, free subscription and accounts are created.
@@ -111,3 +111,6 @@ Deploy `Kingdom_Treasure_Logo.png` and `Kingdom-Treasure-Favicon.png` beside `in
 
 ## PowerShell-assisted Supabase setup
 See `SUPABASE_POWERSHELL_QUICKSTART.md`. Run `Configure-Supabase.ps1` to write the public browser config, `Test-SupabaseConnection.ps1` to test endpoint reachability, `Start-LocalPreview.ps1` for local preview, and `Deploy-SupabaseFunction.ps1` to deploy the secure invitation Edge Function after creating and linking your project. These scripts do not store a service-role key.
+
+## 9. Privacy-first developer platform
+Apply `DEVELOPER_PLATFORM_ACCESS_MIGRATION.sql` only after a backup. It removes earlier broad cross-tenant developer read policies, scopes the developer's church workspace to CFMI/Main Branch, creates church-controlled temporary support grants and creates a separate developer-only software business ledger. Deploy the `developer-admin` Edge Function. See `DEVELOPER_PLATFORM_SETUP.md` and `PRIVACY_AND_DATA_GOVERNANCE.md`. Do not claim GDPR or other legal compliance solely because these technical controls are installed.

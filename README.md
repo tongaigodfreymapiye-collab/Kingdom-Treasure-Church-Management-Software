@@ -15,6 +15,7 @@ A responsive, multi-tenant church management web application. The browser UI is 
 - Commercial plan controls: Free, $20/year Annual Church, $200 once-off Lifetime Church, plus separately approved branch add-ons.
 - PDF and Excel exports gated to paid annual/lifetime plans.
 - Existing Kingdom Treasure logo, historical import review workbook and supplied pastoral payslip template retained.
+- Privacy-first developer dashboard with anonymised platform aggregates and charts; CFMI home-branch workspace; church-approved, time-limited support access; separate software business income/cost ledger.
 
 ## Important production boundary
 This repository is a deployable application source, not a hosted service. A Supabase project must be created and configured by the owner. No Supabase credentials, payment gateway credentials, email provider credentials, or verified merchant account were supplied. Consequently:
@@ -84,3 +85,9 @@ The intro video has been rebuilt without the storyboard caption strips or text o
 
 ## Official Kingdom Treasure brand consistency
 The supplied alternative emblem is not used. The original Kingdom Treasure chest/church-and-cross logo in `Kingdom_Treasure_Logo.png` is the sole brand mark used on the sign-in screen, sidebar, top navigation, favicon/app icon and the final animation reveal. The animation's final reveal was rebuilt on a clean evergreen-and-gold background using that exact original logo asset. `Kingdom-Treasure-Favicon.png` is generated from the same official logo.
+
+
+## Privacy-first developer platform (2026-10-31)
+The reserved developer always lands on an aggregate Platform overview. It does not expose other churches' names, members, donors, contact details or per-church financial rows. The developer's normal church workspace is CFMI/Main Branch. Other church diagnostic access requires a church administrator to submit a support request and explicitly approve a time-limited scope; the church or developer can revoke it. A separate developer-only business ledger records software sales and operating costs, never church giving or church expenditure.
+
+Apply `DEVELOPER_PLATFORM_ACCESS_MIGRATION.sql`, deploy `supabase/functions/developer-admin`, and follow `DEVELOPER_PLATFORM_SETUP.md`. Read `PRIVACY_AND_DATA_GOVERNANCE.md` before production. These safeguards are not a legal compliance certification.

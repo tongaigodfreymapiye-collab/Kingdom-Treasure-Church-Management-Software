@@ -5,16 +5,24 @@ param(
 )
 $ErrorActionPreference = "Stop"
 $ProjectUrl = $ProjectUrl.TrimEnd('/')
-$Headers = @{ apikey = $PublishableKey; Authorization = "Bearer $PublishableKey" }
-Write-Host "Testing Supabase REST API reachability..." -ForegroundColor Cyan
+if ($ProjectUrl -notmatch '^https://[a-zA-Z0-9-]+\.supabase\.co$') {
+ throw "Project URL format is invalid. Expected https://PROJECT-REF.supabase.co"
+}
+if ([string]::IsNullOrWhiteSpace($PublishableKey) -or $PublishableKey -match 'service_role|secret') {
+ throw "Supply only the public anon/publishable key. Never use service_role or a secret key."
+}
+$Headers = @{ apikey = $PublishableKey }
+Write-Host "Testing Supabase Authentication API reachability..." -ForegroundColor Cyan
 try {
- $r = Invoke-WebRequest -Uri "$ProjectUrl/rest/v1/" -Headers $Headers -Method Get
- Write-Host "Supabase endpoint reachable. HTTP $($r.StatusCode)" -ForegroundColor Green
+ $r = Invoke-RestMethod -Uri "$ProjectUrl/auth/v1/health" -Headers $Headers -Method Get
+ Write-Host "Supabase Authentication API is reachable and accepted the public key." -ForegroundColor Green
+ $r | Format-List
 } catch {
  $status = $_.Exception.Response.StatusCode.value__
- if ($status -in @(401,403)) {
-   Write-Host "Endpoint is reachable but returned HTTP $status. Check the public key and API settings." -ForegroundColor Yellow
- } else {
-   throw "Supabase API test failed: $($_.Exception.Message)"
- }
+ $body = $null
+ try {
+   $reader = New-Object System.IO.StreamReader($_.Exception.Response.GetResponseStream())
+   $body = $reader.ReadToEnd()
+ } catch {}
+ throw "Supabase Auth health check failed (HTTP $status). $body"
 }

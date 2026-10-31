@@ -49,8 +49,10 @@ body.intro-active #auth, body.intro-active #shell { visibility:hidden; }
 <form id="authForm">
 <div id="signupFields" class="hidden">
 <div class="field"><label>Your full name</label><input id="fullName" autocomplete="name"></div>
+<div id="churchSignupFields">
 <div class="field"><label>Church / ministry name</label><input id="churchName"></div>
 <div class="field"><label>First branch name</label><input id="branchName" value="Main Branch"></div>
+</div>
 </div>
 <div class="field"><label>Email address</label><input id="email" type="email" required autocomplete="email"></div>
 <div class="field"><label>Password</label><input id="password" type="password" minlength="8" required autocomplete="current-password"></div>
@@ -67,7 +69,7 @@ body.intro-active #auth, body.intro-active #shell { visibility:hidden; }
 <div id="modalRoot"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script><script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="config.js"></script><script>
+<script src="config.js?v=20261031-kt2-fix1"></script><script>
 const DEV_EMAIL='tongaigodfreymapiye@gmail.com', $=id=>document.getElementById(id);
 const qrChurchId=new URLSearchParams(location.search).get('church');
 let sb=null,user=null,profile=null,org=null,branches=[],members=[],transactions=[],budgets=[],departments=[],accounts=[],pledges=[],journalLines=[],subscription=null,chart=null,page='dashboard',authMode='in';
@@ -80,16 +82,103 @@ const isAdmin=()=>['developer','church_admin'].includes(profile?.role);
 const canEdit=()=>['developer','church_admin','treasurer'].includes(profile?.role);
 const isMember=()=>profile?.role==='member';
 const branchId=()=>profile?.branch_id||branches[0]?.id;
-function setAuthMode(m){if(qrChurchId&&m==='up'){m='in';$('authMsg').textContent='Church QR sign-in is for existing registered members. Ask your church administrator for an account.';}authMode=m;$('signupFields').classList.toggle('hidden',m!=='up');$('tabIn').className=m==='in'?'primary':'secondary';$('tabUp').className=m==='up'?'primary':'secondary';$('authSubmit').textContent=m==='in'?'Sign in':'Create free account';$('authMsg').textContent=''}
+function updateReservedDeveloperSignupUI(){
+ const reserved=$('email').value.trim().toLowerCase()===DEV_EMAIL;
+ $('churchSignupFields')?.classList.toggle('hidden',reserved);
+ if(authMode==='up'&&reserved){
+   $('authSubmit').textContent='Create developer account';
+   $('authMsg').textContent='Reserved developer identity: this creates your developer login only, not a church account. Email confirmation is required.';
+ }else if(authMode==='up'){
+   $('authSubmit').textContent='Create free account';
+ }
+}
+function setAuthMode(m){
+ if(qrChurchId&&m==='up'){m='in';$('authMsg').textContent='Church QR sign-in is for existing registered members. Ask your church administrator for an account.';}
+ authMode=m;
+ $('signupFields').classList.toggle('hidden',m!=='up');
+ $('tabIn').className=m==='in'?'primary':'secondary';
+ $('tabUp').className=m==='up'?'primary':'secondary';
+ $('authSubmit').textContent=m==='in'?'Sign in':'Create free account';
+ $('authMsg').textContent='';
+ updateReservedDeveloperSignupUI();
+}
 function init(){
  if(qrChurchId){
    $('qrChurchNotice').classList.remove('hidden');
    $('qrChurchNotice').innerHTML='<b>Church member sign-in</b><br>This sign-in link is assigned to church ID <code>'+esc(qrChurchId)+'</code>. Use the email and password registered with your church.';
    $('tabUp').classList.add('hidden');
  }
- const c=window.KT_CONFIG||{};if(c.url&&c.anonKey&&window.supabase){sb=window.supabase.createClient(c.url,c.anonKey);$('setupNotice').classList.add('hidden');sb.auth.getSession().then(({data})=>{if(data.session)boot(data.session.user)});sb.auth.onAuthStateChange((ev,s)=>{if(s?.user&&!user)boot(s.user);if(!s)showAuth()})}}
+ const c=window.KT_CONFIG||{};
+ const validUrl=typeof c.url==='string' && /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(c.url);
+ const validKey=typeof c.anonKey==='string' && (c.anonKey.startsWith('sb_publishable_') || c.anonKey.startsWith('eyJ'));
+ if(validUrl&&validKey&&window.supabase){
+   try{
+     sb=window.supabase.createClient(c.url,c.anonKey);
+     $('setupNotice').classList.add('hidden');
+     sb.auth.getSession().then(({data,error})=>{
+       if(error)console.error('Kingdom Treasure session check failed:',error.message);
+       if(data?.session)boot(data.session.user);
+     }).catch(error=>console.error('Kingdom Treasure session check failed:',error));
+     sb.auth.onAuthStateChange((ev,s)=>{
+       if(s?.user&&!user)boot(s.user);
+       if(!s)showAuth();
+     });
+   }catch(error){
+     console.error('Kingdom Treasure Supabase initialization failed:',error);
+     $('setupNotice').textContent='Supabase configuration could not be initialized. Check config.js and refresh the page.';
+     $('setupNotice').classList.remove('hidden');
+   }
+ }else{
+   console.error('Kingdom Treasure configuration is missing or invalid.',{
+     configFileLoaded:!!window.KT_CONFIG,
+     validProjectUrl:validUrl,
+     validPublicKey:validKey,
+     supabaseLibraryLoaded:!!window.supabase
+   });
+   $('setupNotice').textContent='Supabase connection is not configured correctly. Confirm config.js contains your project URL and public publishable key, then hard-refresh this page.';
+   $('setupNotice').classList.remove('hidden');
+ }
+}
 function showAuth(){$('shell').classList.add('hidden');$('auth').classList.remove('hidden');user=null;profile=null}
-async function authSubmit(e){e.preventDefault();if(!sb){$('authMsg').textContent='Supabase is not configured. Complete config.js and run the SQL setup first.';return}let email=$('email').value.trim().toLowerCase(),password=$('password').value;$('authSubmit').disabled=true;$('authMsg').textContent='Please wait…';try{if(authMode==='in'){let {error}=await sb.auth.signInWithPassword({email,password});if(error)throw error}else{let {data,error}=await sb.auth.signUp({email,password,options:{data:{full_name:$('fullName').value.trim(),church_name:$('churchName').value.trim(),branch_name:$('branchName').value.trim()||'Main Branch'},emailRedirectTo:location.origin+location.pathname}});if(error)throw error;if(data.session)await boot(data.user);$('authMsg').textContent='Account created. Check your email to verify the address, then sign in.'}}catch(err){$('authMsg').textContent=err.message||'Authentication failed'}finally{$('authSubmit').disabled=false}}
+async function authSubmit(e){
+ e.preventDefault();
+ if(!sb){$('authMsg').textContent='Supabase is not connected. Check config.js and refresh the page.';return}
+ const email=$('email').value.trim().toLowerCase(),password=$('password').value;
+ const reservedDeveloper=authMode==='up'&&email===DEV_EMAIL;
+ $('authSubmit').disabled=true;
+ $('authMsg').textContent='Please wait…';
+ try{
+   if(authMode==='in'){
+     const {error}=await sb.auth.signInWithPassword({email,password});
+     if(error)throw error;
+   }else{
+     const metadata={full_name:$('fullName').value.trim()};
+     if(!reservedDeveloper){
+       metadata.church_name=$('churchName').value.trim();
+       metadata.branch_name=$('branchName').value.trim()||'Main Branch';
+     }
+     const {data,error}=await sb.auth.signUp({
+       email,password,
+       options:{data:metadata,emailRedirectTo:location.origin+location.pathname}
+     });
+     if(error)throw error;
+     if(data.user?.identities?.length===0){
+       $('authMsg').textContent='An account may already exist for this email. Switch to Sign in or use Forgot password.';
+       return;
+     }
+     if(data.session)await boot(data.user);
+     $('authMsg').textContent=reservedDeveloper
+       ?'Developer account created. Confirm the email using the message sent to your inbox, then sign in. Your developer role is assigned by the database after confirmation.'
+       :'Account created. Check your email to verify the address, then sign in.';
+   }
+ }catch(err){
+   console.error('Kingdom Treasure authentication error:',err);
+   $('authMsg').textContent=err.message||'Authentication failed';
+ }finally{
+   $('authSubmit').disabled=false;
+ }
+}
+$('email').addEventListener('input',updateReservedDeveloperSignupUI);
 $('authForm').addEventListener('submit',authSubmit);
 async function resetPassword(){if(!sb)return alert('Configure Supabase first');let email=$('email').value.trim();if(!email)return alert('Enter your email address first');let {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});$('authMsg').textContent=error?error.message:'Password reset email sent.'}
 async function signOut(){if(sb)await sb.auth.signOut();showAuth()}
@@ -299,24 +388,8 @@ function replayIntro(){
    $('introPlaybackMessage').textContent='Please tap Play intro with hymn to allow audio playback.';
    $('introPlay')?.classList.remove('hidden');
  });
-}
-function replayIntro(){
- const v=$('introVideo');
- if(!v)return;
- v.currentTime=0;
- const p=v.play();
- if(p&&p.catch)p.catch(()=>{});
  $('introPlay')?.classList.add('hidden');
  $('introContinue')?.classList.add('hidden');
 }
-function replayIntro(){
- const v=$('introVideo');
- if(!v)return;
- v.currentTime=0;
- const p=v.play();
- if(p&&p.catch)p.catch(()=>{});
- $('introPlay')?.classList.add('hidden');
-}
-
 init();
 </script></body></html>

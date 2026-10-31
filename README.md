@@ -91,3 +91,12 @@ The supplied alternative emblem is not used. The original Kingdom Treasure chest
 The reserved developer always lands on an aggregate Platform overview. It does not expose other churches' names, members, donors, contact details or per-church financial rows. The developer's normal church workspace is CFMI/Main Branch. Other church diagnostic access requires a church administrator to submit a support request and explicitly approve a time-limited scope; the church or developer can revoke it. A separate developer-only business ledger records software sales and operating costs, never church giving or church expenditure.
 
 Apply `DEVELOPER_PLATFORM_ACCESS_MIGRATION.sql`, deploy `supabase/functions/developer-admin`, and follow `DEVELOPER_PLATFORM_SETUP.md`. Read `PRIVACY_AND_DATA_GOVERNANCE.md` before production. These safeguards are not a legal compliance certification.
+
+
+## Additional product improvement backlog
+
+See `CHURCHCMS_REFERENCE_IMPROVEMENTS.md` for the selected ChurchCMS-inspired improvements, explicit exclusions, security rules and staged implementation plan. This is a specification, not a claim that these additional features are already implemented.
+
+
+## Finance-first final frontend improvements
+See `FINANCE_FIRST_FINAL_IMPROVEMENTS.md`. This conservative update improves the financial dashboard and registers while preserving the existing Supabase configuration and database. It does not require a database reset or first-install SQL.

@@ -93,3 +93,7 @@ The script runs `supabase login`, links the project, sets `APP_ORIGIN`, and depl
 ## What is not automated yet
 
 This setup does not create the Supabase project, configure SMTP, create a GitHub repository, or connect a payment processor. Those require your account and provider credentials. Payment processing should be completed with a server-verified webhook before accepting live payments.
+
+
+## SQL error 42702 recovery (role is ambiguous)
+If the first installation attempt stops at `kt_is_developer()` with `column reference "role" is ambiguous`, use the corrected `KINGDOM_TREASURE_FIRST_INSTALL.sql` supplied in the SQL-fix package. The function now explicitly references `p.role` and `u.email`. Do not run the old SQL again. Before re-running the corrected full install, inspect the database in Table Editor: if any Kingdom Treasure tables were created by the failed attempt, stop and take a backup / request a migration-based recovery rather than re-running the first-install bundle. If no application tables were created, run the corrected bundle once on the empty project.

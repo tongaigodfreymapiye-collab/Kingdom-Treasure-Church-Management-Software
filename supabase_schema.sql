@@ -112,8 +112,8 @@ create or replace function public.kt_role() returns public.kt_role language sql 
  select role from public.profiles where id=auth.uid()
 $$;
 create or replace function public.kt_is_developer() returns boolean language sql stable security definer set search_path=public as $$
- select coalesce((select role='developer' and lower(email)='tongaigodfreymapiye@gmail.com'
- from public.profiles p join auth.users u on u.id=p.id where p.id=auth.uid()),false)
+ select coalesce((select p.role='developer' and lower(u.email)='tongaigodfreymapiye@gmail.com'
+ from public.profiles as p join auth.users as u on u.id=p.id where p.id=auth.uid()),false)
 $$;
 create or replace function public.kt_can_manage() returns boolean language sql stable security definer set search_path=public as $$
  select coalesce(public.kt_role() in ('developer','church_admin'),false)

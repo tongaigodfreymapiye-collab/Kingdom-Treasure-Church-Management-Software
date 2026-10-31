@@ -1,6 +1,6 @@
-// Paste the public Supabase project URL and anon/publishable key here.
-// Never put the Supabase service_role key in this file or in GitHub Pages.
+// Public Supabase browser configuration for Kingdom Treasure.
+// Publishable key only. Never put a Supabase secret/service_role key here.
 window.KT_CONFIG = {
-  url: "https://YOUR-PROJECT-REF.supabase.co",
-  anonKey: "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY"
+  url: "https://wabkzxvlwkmwisijofmk.supabase.co",
+  anonKey: "sb_publishable_rAR_VgklkFOOTynJ2WnQIA_DiUx-9Eu"
 };

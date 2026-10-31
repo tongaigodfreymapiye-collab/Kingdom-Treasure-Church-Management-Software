@@ -100,3 +100,7 @@ See `CHURCHCMS_REFERENCE_IMPROVEMENTS.md` for the selected ChurchCMS-inspired im
 
 ## Finance-first final frontend improvements
 See `FINANCE_FIRST_FINAL_IMPROVEMENTS.md`. This conservative update improves the financial dashboard and registers while preserving the existing Supabase configuration and database. It does not require a database reset or first-install SQL.
+
+## Church and branch management
+
+See `CHURCH_AND_BRANCH_MANAGEMENT_GUIDE.md` and `CHURCH_AND_BRANCH_MANAGEMENT_MIGRATION.sql` for the additive migration and deployment order. This update adds developer-side church registration, first-branch creation, branch contact details and a required active-branch selector for member registration. Do not run the first-install SQL against an existing project.
